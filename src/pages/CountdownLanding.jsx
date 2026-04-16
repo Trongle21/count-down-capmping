@@ -5,8 +5,7 @@ import CountdownCard from "../components/CountdownCard.jsx";
 import ExpiredNotice from "../components/ExpiredNotice.jsx";
 
 function getTargetDate() {
-  // Countdown đến 00:00:00 ngày 18/04/2026 theo timezone hệ thống.
-  // Nếu bạn muốn "hết ngày" (23:59:59), đổi sang: new Date(2026, 3, 18, 23, 59, 59)
+  // return new Date(Date.now() + 999993_000);
   return new Date(2026, 3, 18, 0, 0, 0);
 }
 
@@ -38,7 +37,7 @@ function getTimeParts(targetDate, nowMs) {
   };
 }
 
-export default function CountdownLanding() {
+export default function CountdownLanding({ onComplete }) {
   const targetDate = useMemo(() => getTargetDate(), []);
 
   const [nowMs, setNowMs] = useState(() => Date.now());
@@ -66,7 +65,13 @@ export default function CountdownLanding() {
     [targetDate, nowMs],
   );
 
-  const targetText = "18/04/2026";
+  useEffect(() => {
+    if (parts.expired) {
+      onComplete?.();
+    }
+  }, [onComplete, parts.expired]);
+
+  const targetText = "10 giây";
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#060816]">

@@ -1,6 +1,17 @@
-import CountdownLanding from './pages/CountdownLanding.jsx'
+import { useState } from "react";
+import { Heart } from "./components/Heart.jsx";
+import CountdownLanding from "./pages/CountdownLanding.jsx";
 
 export default function App() {
-  return <CountdownLanding />
-}
+  const [showHeart, setShowHeart] = useState(false);
 
+  return (
+    <>
+      {showHeart ? (
+        <Heart />
+      ) : (
+        <CountdownLanding onComplete={() => setShowHeart(true)} />
+      )}
+    </>
+  );
+}
