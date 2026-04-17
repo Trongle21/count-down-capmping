@@ -93,7 +93,7 @@ export default function CountdownLanding({ onComplete }) {
 
           <h1 className="mt-5 text-4xl font-extrabold tracking-tight text-white sm:text-5xl">
             Đếm ngược tới
-            <span className="text-purple-400"> ngày {targetText}</span>
+            <span className="text-purple-400"> Count Down</span>
           </h1>
           <p className="mt-3 text-white/70 text-sm sm:text-base">
             Chờ đợi là hạnh phúc nha Ny Ny
