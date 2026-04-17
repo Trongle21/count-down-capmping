@@ -4,8 +4,42 @@ import HeartPicture from "./HeartPiture.tsx";
 
 export function Heart() {
   const canvasRef = useRef(null);
+  const audioRef = useRef(null);
   const [isPictureOpen, setIsPictureOpen] = useState(false);
   const [selectedHeartId, setSelectedHeartId] = useState(1);
+
+  // Auto-play audio when component mounts
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    audio.volume = 0.5;
+    audio.loop = true;
+
+    const playAudio = () => {
+      audio.play().catch((error) => {
+        console.log("Auto-play prevented:", error);
+      });
+    };
+
+    // Attempt to play immediately
+    playAudio();
+
+    // Also try on first user interaction
+    const handleInteraction = () => {
+      playAudio();
+      document.removeEventListener("click", handleInteraction);
+      document.removeEventListener("touchstart", handleInteraction);
+    };
+
+    document.addEventListener("click", handleInteraction);
+    document.addEventListener("touchstart", handleInteraction);
+
+    return () => {
+      document.removeEventListener("click", handleInteraction);
+      document.removeEventListener("touchstart", handleInteraction);
+    };
+  }, []);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -212,6 +246,13 @@ export function Heart() {
 
   return (
     <div className="heart-page">
+      {/* Background Music */}
+      <audio
+        ref={audioRef}
+        src="/src/assets/audio/Lần Sau Cuối (Lofi Ver.) - DuongG x Freak D.mp3"
+        preload="auto"
+      />
+
       <button
         type="button"
         className="heart-page__box relative"

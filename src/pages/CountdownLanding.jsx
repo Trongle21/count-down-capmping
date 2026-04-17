@@ -5,8 +5,8 @@ import CountdownCard from "../components/CountdownCard.jsx";
 import ExpiredNotice from "../components/ExpiredNotice.jsx";
 
 function getTargetDate() {
-  // return new Date(Date.now() + 999993_000);
-  return new Date(2026, 3, 18, 0, 0, 0);
+  return new Date(Date.now() + 3_000);
+  // return new Date(2026, 3, 18, 0, 0, 0);
 }
 
 function getTimeParts(targetDate, nowMs) {
